@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="icon" href="black_cat.jpg" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Ana Teresa</title>
+    <style>
+        /* Importando fonte estilo Game Boy / Pixel Art */
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+        body {
+            background-color: #1a0505; /* Fundo vinho bem escuro */
+            color: white;
+            font-family: 'Press Start 2P', cursive;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh; /* Mudado para min-height para permitir scroll se a foto for grande */
+            margin: 0;
+            overflow-x: hidden; /* Evita scroll lateral */
+            position: relative;
+            padding-bottom: 50px; /* Espaço extra no final */
+        }
+
+        /* Container principal */
+        .content {
+            z-index: 10;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #ff6b6b;
+            text-shadow: 4px 4px 0px #880000;
+            line-height: 1.5;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        h2 {
+            color: #ffffff;
+            text-shadow: 3px 3px 0px #ff1493;
+            margin-top: 20px;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+        }
+
+        /* Botão do Cartão */
+        .card-button {
+            padding: 20px 40px;
+            background-color: #2a0000;
+            border: 4px solid #ff1493;
+            color: #ffb6c1;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 0 #880040;
+            margin-top: 20px;
+        }
+
+        .card-button:hover {
+            background-color: #3a0000;
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 7px 0 #880040;
+        }
+
+        .card-button:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #880040;
+        }
+
+        /* --- MOLDURA E IMAGEM --- */
+        .hidden-container {
+            display: none; /* Começa escondido */
+            margin-top: 30px;
+            animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .photo-frame {
+            background-color: #fff;
+            padding: 15px; /* Borda branca interna (tipo foto polaroid) */
+            display: inline-block;
+            position: relative;
+            
+            /* A Mágica da Moldura Pixelada */
+            box-shadow: 
+                0 0 0 5px #2a0000,   /* Linha escura separadora */
+                0 0 0 10px #ffcc00,  /* Moldura Dourada */
+                0 0 0 15px #ff1493,  /* Borda Rosa Externa */
+                0 15px 30px rgba(0,0,0,0.8); /* Sombra 3D no fundo */
+        }
+
+        .photo-frame img {
+            display: block;
+            width: 100%;
+            max-width: 600px; /* IMAGEM BEM MAIOR AGORA */
+            height: auto;
+            image-rendering: pixelated; /* Mantém o estilo pixelado se a foto for low-res */
+            border: 2px solid #ddd;
+        }
+
+        /* Legenda da foto (opcional) */
+        .photo-caption {
+            color: #2a0000;
+            margin-top: 10px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+        }
+
+        /* --- A Mágica da Pixel Art CSS (Rosa) --- */
+        .pixel-rose {
+            width: 15px;
+            height: 15px;
+            background: transparent;
+            position: relative;
+            margin: 20px auto;
+            box-shadow: 
+                -15px -45px 0 #ff0040, 0px -45px 0 #ff0040, 15px -45px 0 #ff0040,
+                -30px -30px 0 #ff0040, -15px -30px 0 #ff0040, 0px -30px 0 #aa002a, 15px -30px 0 #ff0040, 30px -30px 0 #ff0040,
+                -30px -15px 0 #ff0040, -15px -15px 0 #aa002a, 0px -15px 0 #ff0040, 15px -15px 0 #aa002a, 30px -15px 0 #ff0040,
+                -15px 0px 0 #ff0040, 0px 0px 0 #ff0040, 15px 0px 0 #ff0040,
+                0px 15px 0 #008f11,
+                -15px 30px 0 #008f11, 0px 30px 0 #00cc18, 15px 30px 0 #008f11,
+                -30px 45px 0 #008f11, 0px 45px 0 #008f11, 30px 45px 0 #008f11,
+                0px 60px 0 #008f11,
+                0px 75px 0 #008f11;
+            animation: glowing 2s infinite alternate;
+        }
+
+        /* Animações */
+        @keyframes glowing {
+            0% { filter: drop-shadow(0 0 5px #ff0040); }
+            100% { filter: drop-shadow(0 0 25px #ff0040) drop-shadow(0 0 10px yellow); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            80% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); }
+        }
+
+        .heart-rain {
+            position: absolute;
+            top: -10vh;
+            color: #ff0040;
+            font-size: 1rem;
+            opacity: 0.6;
+            z-index: 1;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(110vh); }
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 1rem; }
+            .pixel-rose { transform: scale(0.8); }
+            .photo-frame img { max-width: 90vw; } /* Garante que não estoure no celular */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="content">
+        <h1>FELIZ DIA DE<br>SÃO VALENTIM</h1>
+        
+        <div style="height: 120px; display: flex; align-items: center; justify-content: center;">
+            <div class="pixel-rose"></div>
+        </div>
+
+        <h2>ANA TERESA</h2>
+
+        <div class="card-button" id="botaoAbrir" onclick="mostrarImagem()">
+            Clique para abrir o cartão 
+        </div>
+
+        <div class="hidden-container" id="imagemContainer">
+            <div class="photo-frame">
+                <img src="d31f95ed-c182-44de-8962-d7bf3369ee30.png" alt="Ana Teresa">
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-rain');
+            heart.innerHTML = '🐈‍⬛';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+            heart.style.animationDuration = Math.random() * 3 + 3 + 's';
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }
+
+        function mostrarImagem() {
+            const container = document.getElementById("imagemContainer");
+            const botao = document.getElementById("botaoAbrir");
+
+            // Mostra a imagem
+            container.style.display = "block";
+            
+            // Esconde o botão para limpar a tela
+            botao.style.display = "none";
+
+            // Rola a tela suavemente até a imagem (bom para celular)
+            container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        setInterval(createHeart, 300);
+    </script>
+</body>
+</html>
